@@ -9,7 +9,7 @@
 import UIKit
 
 class RepositoryDetailViewController: UIViewController {
-
+ 
     
     var repositoryDetail : GitHubRepository?
     
