@@ -92,8 +92,11 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rql-E4-zaP">
-                                        <rect key="frame" x="105" y="268.5" width="46" height="30"/>
-                                        <state key="normal" title="Button"/>
+                                        <rect key="frame" x="105" y="268.5" width="71" height="30"/>
+                                        <state key="normal" title="Click Here"/>
+                                        <connections>
+                                            <action selector="projectLinkButtonAction:" destination="HWs-bS-lTj" eventType="touchUpInside" id="FaC-2N-x59"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contributers :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1F5-mN-GIX">
                                         <rect key="frame" x="10" y="430" width="105" height="20.5"/>
@@ -104,15 +107,15 @@
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="610-h2-jgP">
                                         <rect key="frame" x="10" y="460.5" width="394" height="293.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="85S-qa-h0S">
+                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="15" minimumInteritemSpacing="15" id="85S-qa-h0S">
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9OT-89-1fk">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <rect key="frame" x="5" y="5" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="x11-qW-AIR">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -162,10 +165,15 @@
                         <viewLayoutGuide key="safeArea" id="aQ5-pe-RDY"/>
                     </view>
                     <navigationItem key="navigationItem" id="jFJ-Lt-4aL"/>
+                    <connections>
+                        <outlet property="collectionView" destination="610-h2-jgP" id="maz-Nx-Nvp"/>
+                        <outlet property="descriptionTextView" destination="iJb-aw-8QD" id="7VR-Gq-usV"/>
+                        <outlet property="nameLabel" destination="Vbb-FO-S2B" id="e4C-GC-Uz3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHy-nB-w6e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1774" y="98"/>
+            <point key="canvasLocation" x="1614" y="110"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="X8d-KX-cb6">

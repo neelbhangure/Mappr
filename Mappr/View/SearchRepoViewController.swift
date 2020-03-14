@@ -23,7 +23,7 @@ class SearchRepoViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? RepositoryDetailViewController , let repoDetail = sender as? GitHubRepository {
-            vc.repositoryDetail = repoDetail 
+            vc.viewModel.repositoryDetail = repoDetail 
         }
     }
     

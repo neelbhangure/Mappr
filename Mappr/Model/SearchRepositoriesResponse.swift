@@ -9,22 +9,27 @@
 import Foundation
 
 struct GitHubRepository: Codable {
-    let id: Int
+    public let id: Int
     public let watchersCount : Int?
     public let fullName : String?
-     public let name : String?
+    public let name : String?
     public let commitcount : Int?
     public let forks : Int?
     public let owner : SearchRepositoriesOwner?
+    public let contributersUrl : String?
+     public let description : String?
+    public let url : String?
     
     private enum CodingKeys: String, CodingKey {
+        case description , url = "html_url"
         case forks
         case id
-       case watchersCount = "watchers_count"
+        case watchersCount = "watchers_count"
         case fullName = "full_name"
         case owner
         case name
         case commitcount = "stargazers_count"
+        case contributersUrl = "contributors_url"
     }
 }
 

@@ -73,6 +73,25 @@ struct GitHubApi : SearchRepositoryService {
         }.resume()
         
     }
+    
+    func getContributersList(withUrl url : URL, successHandler: @escaping (ContributerList) -> Void, errorHandler: @escaping (Error) -> Void) {
+        get(withURL: URLRequest(url: url)) { (data) in
+            guard let data = data else {
+                self.handleError(errorHandler: errorHandler, error: GitError.noData)
+                return
+            }
+            
+            do {
+                let booksResponse = try GitHubApi.decoder.decode(ContributerList.self, from: data)
+                DispatchQueue.main.async {
+                    successHandler(booksResponse)
+                }
+            } catch {
+                self.handleError(errorHandler: errorHandler, error: GitError.serializationError)
+            }
+        }
+    }
+    
     private func handleError(errorHandler: @escaping(_ error: Error) -> Void, error: Error) {
         DispatchQueue.main.async {
             errorHandler(error)
