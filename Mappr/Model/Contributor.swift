@@ -10,7 +10,7 @@ import Foundation
 import Foundation
 
 // MARK: - ContributorElement
-struct ContributorElement: Codable {
+struct ContributorElement: Codable, Base {
     let login: String
     let id: Int
     let nodeID: String

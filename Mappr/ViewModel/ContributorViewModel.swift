@@ -11,15 +11,16 @@ import Foundation
 class ContributorViewModel {
     var reloadData : (() -> ())?
     
-     var repositoryDetail : GitHubRepository?
+    var repositoryDetail : GitHubRepository?
     var contributorList = ContributerList()
-    
     
     var listCount : Int {
         get {
             return  contributorList.count
         }
     }
+    
+    
     
     func getContributorList(withURL url : URL) {
         GitHubApi.shared.getContributersList(withUrl: url, successHandler: { [weak self] (list) in
@@ -31,5 +32,6 @@ class ContributorViewModel {
             
         }
     }
+    
     
 }

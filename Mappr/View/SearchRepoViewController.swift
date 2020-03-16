@@ -10,74 +10,94 @@ import UIKit
 private let repoReuseIdentifier = "RepoCell"
 class SearchRepoViewController: UIViewController {
     
-    var viewModel = SearchRepoViewModel()
     @IBOutlet weak var tableView: UITableView!
+    var viewModel = SearchRepoViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-     setupNavBar()
+        setupNavBar()
         setupTableView()
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? RepositoryDetailViewController , let repoDetail = sender as? GitHubRepository {
-            vc.viewModel.repositoryDetail = repoDetail 
+        if let repositoryDetailViewController = segue.destination as? RepositoryDetailViewController, let repoDetail = sender as? GitHubRepository {
+            repositoryDetailViewController.viewModel.repositoryDetail = repoDetail
         }
     }
     
-  @objc func  filterButtonAction() {
+    @objc func  filterButtonAction() {
+        let filterTableViewController = FilterTableViewController()
+        filterTableViewController.previousSelectedLanguage = viewModel.filterLanguage ?? ""
+        let navigationController = UINavigationController(rootViewController: filterTableViewController)
+        navigationController.navigationBar.barTintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        navigationController.navigationBar.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true, completion: {
+            filterTableViewController.doneButtonPressed = { [weak self] language in
+                guard let self = self else { return }
+                guard self.viewModel.filterLanguage != language else {
+                    return
+                }
+                self.viewModel.filterLanguage = language
+                self.dismiss(animated: true, completion: nil)
+                self.viewModel.repoList = []
+                self.tableView.reloadData()
+                let searchBar = self.navigationItem.titleView as? UISearchBar
+                self.viewModel.searchRepoList(searchString: searchBar?.text ?? "")
+            }
+        })
         
     }
 }
+
 extension SearchRepoViewController : UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.searchRepoList(with: searchBar.text ?? "")
+        
+        viewModel.searchRepoList(searchString: searchBar.text ?? "")
+        (navigationItem.titleView as? UISearchBar)?.resignFirstResponder()
     }
-    
 }
+
 extension SearchRepoViewController : UITableViewDelegate,UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.listCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard  let cell = tableView.dequeueReusableCell(withIdentifier: repoReuseIdentifier, for: indexPath) as?  RepositoryCell else {
-            return  UITableViewCell()
+        
+        if viewModel.listCount > indexPath.row, let cell = tableView.dequeueReusableCell(withIdentifier: repoReuseIdentifier, for: indexPath) as? RepositoryCell {
+            cell.repo = viewModel.repoList[indexPath.row]
+            return cell
         }
-        cell.repo = viewModel.repoList[indexPath.row]
-        return cell
+        return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         performSegue(withIdentifier: "RepoDetailSegue", sender: viewModel.repoList[indexPath.row])
+        if viewModel.listCount > indexPath.row {
+            performSegue(withIdentifier: "RepoDetailSegue", sender: viewModel.repoList[indexPath.row])
+        }
     }
-    
-    
 }
+
 extension SearchRepoViewController {
     
-    
-    func setupNavBar() {
+    private func setupNavBar() {
         let searchBar = UISearchBar()
+        searchBar.searchTextField.backgroundColor = .white
         searchBar.placeholder = "Search"
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         searchBar.becomeFirstResponder()
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "FilterImage"), landscapeImagePhone: nil, style: .plain, target: self, action: #selector(filterButtonAction))
     }
-    func setupTableView() {
-        
+    
+    private func setupTableView() {
         tableView.register(UINib(nibName: "RepositoryCell", bundle: nil), forCellReuseIdentifier: repoReuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableView.automaticDimension
         viewModel.reloadData = {
-            self.tableView.reloadData()
+             [weak self] in
+            self?.tableView.reloadData()
         }
-        
-    
     }
-    
 }

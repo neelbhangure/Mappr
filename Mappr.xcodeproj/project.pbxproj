@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1882D10E241E21360058DEE4 /* ContributorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882D10D241E21360058DEE4 /* ContributorDetailsViewController.swift */; };
+		1882D112241E2BAE0058DEE4 /* ContributorDetailviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882D111241E2BAE0058DEE4 /* ContributorDetailviewModel.swift */; };
+		1882D114241E3B120058DEE4 /* UIIMageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882D113241E3B120058DEE4 /* UIIMageView.swift */; };
+		1882D117241E47BA0058DEE4 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882D116241E47BA0058DEE4 /* FilterTableViewController.swift */; };
+		1882D119241E55FE0058DEE4 /* FilterOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882D118241E55FE0058DEE4 /* FilterOptionsTableViewCell.swift */; };
+		1882D11B241F2F7C0058DEE4 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1882D11A241F2F7C0058DEE4 /* UIView.swift */; };
 		844D8320241CEEF70055FAFD /* SearchRepoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D831F241CEEF70055FAFD /* SearchRepoViewModel.swift */; };
 		845B6389241C9BAA00DEB8FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B6388241C9BAA00DEB8FF /* AppDelegate.swift */; };
 		845B638B241C9BAA00DEB8FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B638A241C9BAA00DEB8FF /* SceneDelegate.swift */; };
@@ -46,6 +52,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1882D10D241E21360058DEE4 /* ContributorDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributorDetailsViewController.swift; sourceTree = "<group>"; };
+		1882D111241E2BAE0058DEE4 /* ContributorDetailviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributorDetailviewModel.swift; sourceTree = "<group>"; };
+		1882D113241E3B120058DEE4 /* UIIMageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIMageView.swift; sourceTree = "<group>"; };
+		1882D116241E47BA0058DEE4 /* FilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
+		1882D118241E55FE0058DEE4 /* FilterOptionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionsTableViewCell.swift; sourceTree = "<group>"; };
+		1882D11A241F2F7C0058DEE4 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		844D831F241CEEF70055FAFD /* SearchRepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepoViewModel.swift; sourceTree = "<group>"; };
 		845B6385241C9BAA00DEB8FF /* Mappr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mappr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845B6388241C9BAA00DEB8FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +110,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1882D115241E3B170058DEE4 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1882D113241E3B120058DEE4 /* UIIMageView.swift */,
+				1882D11A241F2F7C0058DEE4 /* UIView.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		845B637C241C9BAA00DEB8FF = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +142,7 @@
 		845B6387241C9BAA00DEB8FF /* Mappr */ = {
 			isa = PBXGroup;
 			children = (
+				1882D115241E3B170058DEE4 /* extensions */,
 				845B63C2241CB43500DEB8FF /* View */,
 				845B63BF241C9FFF00DEB8FF /* ViewModel */,
 				845B63BE241C9FF700DEB8FF /* Model */,
@@ -176,6 +198,7 @@
 			children = (
 				844D831F241CEEF70055FAFD /* SearchRepoViewModel.swift */,
 				84AB090E241D0E7800F58F77 /* ContributorViewModel.swift */,
+				1882D111241E2BAE0058DEE4 /* ContributorDetailviewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -189,6 +212,9 @@
 				84AB090A241D031900F58F77 /* RepositoryDetailViewController.swift */,
 				84AB0910241D109800F58F77 /* ContributorCell.xib */,
 				84AB0912241D10B700F58F77 /* ContributorCell.swift */,
+				1882D10D241E21360058DEE4 /* ContributorDetailsViewController.swift */,
+				1882D116241E47BA0058DEE4 /* FilterTableViewController.swift */,
+				1882D118241E55FE0058DEE4 /* FilterOptionsTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -328,16 +354,22 @@
 			files = (
 				845B63C6241CB68300DEB8FF /* SearchRepoViewController.swift in Sources */,
 				84AB090D241D09A600F58F77 /* Contributor.swift in Sources */,
+				1882D112241E2BAE0058DEE4 /* ContributorDetailviewModel.swift in Sources */,
 				845B63C8241CBDFE00DEB8FF /* RepositoryCell.swift in Sources */,
+				1882D117241E47BA0058DEE4 /* FilterTableViewController.swift in Sources */,
 				845B63C1241CA3DF00DEB8FF /* SearchRepositoriesResponse.swift in Sources */,
 				845B6389241C9BAA00DEB8FF /* AppDelegate.swift in Sources */,
 				84AB090F241D0E7800F58F77 /* ContributorViewModel.swift in Sources */,
 				84AB090B241D031900F58F77 /* RepositoryDetailViewController.swift in Sources */,
+				1882D114241E3B120058DEE4 /* UIIMageView.swift in Sources */,
 				844D8320241CEEF70055FAFD /* SearchRepoViewModel.swift in Sources */,
 				845B6393241C9BAA00DEB8FF /* Mappr.xcdatamodeld in Sources */,
 				845B63BC241C9F3F00DEB8FF /* GitHubApi.swift in Sources */,
 				845B638B241C9BAA00DEB8FF /* SceneDelegate.swift in Sources */,
+				1882D10E241E21360058DEE4 /* ContributorDetailsViewController.swift in Sources */,
 				84AB0913241D10B700F58F77 /* ContributorCell.swift in Sources */,
+				1882D11B241F2F7C0058DEE4 /* UIView.swift in Sources */,
+				1882D119241E55FE0058DEE4 /* FilterOptionsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

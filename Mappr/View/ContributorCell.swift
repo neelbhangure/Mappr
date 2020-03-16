@@ -13,7 +13,10 @@ class ContributorCell: UICollectionViewCell {
     @IBOutlet weak var contributorNameLabel: UILabel!
     var contriButorDetails : ContributorElement? {
         didSet {
+            contributorImageView.image = nil
             contributorNameLabel.text = contriButorDetails?.login
+            contributorImageView.loadImageUsingCache(withUrl: contriButorDetails?.avatarURL ?? "")
+            
         }
     }
     

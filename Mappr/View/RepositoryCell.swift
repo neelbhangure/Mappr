@@ -9,20 +9,24 @@
 import UIKit
 
 class RepositoryCell: UITableViewCell {
-
+    
+    //MARK:- IBOutlet property
     @IBOutlet weak var nameLAbel: UILabel!
     @IBOutlet weak var avtarImageView: UIImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var watcherCount: UILabel!
-    
     @IBOutlet weak var commitCount: UILabel!
     
-    var repo : GitHubRepository? {
+    ///property Observer
+    var repo: GitHubRepository? {
         didSet {
+            avtarImageView.image = nil
             fullNameLabel.text =  repo?.fullName
-            watcherCount.text = repo?.watchersCount?.description
+            watcherCount.text = repo?.watchersCount.description
             commitCount.text  = repo?.forks?.description
             nameLAbel.text =  repo?.name
+            avtarImageView.loadImageUsingCache(withUrl: repo?.owner?.avatarUrl ?? "")
+            
         }
     }
     
@@ -30,10 +34,5 @@ class RepositoryCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
-
+    
 }

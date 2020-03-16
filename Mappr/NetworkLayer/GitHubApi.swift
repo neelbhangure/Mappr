@@ -16,24 +16,20 @@ protocol SearchRepositoryService {
     
     
 }
-struct GitHubApi : SearchRepositoryService {
-    
-     private let urlSession = URLSession.shared
-    
+struct GitHubApi: SearchRepositoryService {
+        
+    private static var baseUrl = "https://api.github.com"
+    private let urlSession = URLSession.shared
     public static let shared = GitHubApi()
     private init() {}
-    
     
     func searchRepos(searchWith : String, params: [String : String]?, successHandler: @escaping (SearchRepositoriesResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
         guard var urlComponents = URLComponents(string: "\(GitHubApi.baseUrl)/search/repositories") else {
             errorHandler(GitError.invalidEndpoint)
             return
         }
-        
         var queryItems = [
-            
             URLQueryItem(name: "q", value: searchWith),
-            
         ]
         if let params = params {
             queryItems.append(contentsOf: params.map { URLQueryItem(name: $0.key, value: $0.value) })
@@ -80,11 +76,28 @@ struct GitHubApi : SearchRepositoryService {
                 self.handleError(errorHandler: errorHandler, error: GitError.noData)
                 return
             }
-            
             do {
                 let booksResponse = try GitHubApi.decoder.decode(ContributerList.self, from: data)
                 DispatchQueue.main.async {
                     successHandler(booksResponse)
+                }
+            } catch {
+                self.handleError(errorHandler: errorHandler, error: GitError.serializationError)
+            }
+        }
+    }
+    func getContributersRepoList(withUrl url : URL, successHandler: @escaping ([GitHubRepository]) -> Void, errorHandler: @escaping (Error) -> Void) {
+        get(withURL: URLRequest(url: url)) { (data) in
+            guard let data = data else {
+                self.handleError(errorHandler: errorHandler, error: GitError.noData)
+                return
+            }
+            
+            do {
+                let repoListResponse = try GitHubApi.decoder.decode([GitHubRepository].self, from: data)
+                
+                DispatchQueue.main.async {
+                    successHandler(repoListResponse)
                 }
             } catch {
                 self.handleError(errorHandler: errorHandler, error: GitError.serializationError)
@@ -97,52 +110,20 @@ struct GitHubApi : SearchRepositoryService {
             errorHandler(error)
         }
     }
-    private static var baseUrl = "https://api.github.com"
     
-    struct SearchRequest: Request {
-        var url: String {
-            return baseUrl + "/search/repositories"
-        }
-        let search: String
-        let page: Int
-        
-        func params() -> [(key: String, value: String)] {
-            return [
-                (key: "q", value: search),
-                (key: "sort", value : "stars"),
-                (key: "page", value : "\(page)")
-            ]
-        }
-    }
-    
-//    func search(with request: SearchRequest, onSuccess: @escaping (SearchRepositoriesResponse) -> Void, onError: @escaping (Error) -> Void) {
-//        get(withURL: request) { (data) in
-//            do {
-//                let response = try self.parse(data)
-//                onSuccess(response)
-//            } catch {
-//                onError(ApiError.failedParse)
-//            }
-//        }
-//    }
-//    
-//    private func parse(_ data: Data) throws -> SearchRepositoriesResponse {
-//        let response: SearchRepositoriesResponse = try JSONDecoder().decode(SearchRepositoriesResponse.self, from: data)
-//        return response
-//    }
 }
 
-extension  GitHubApi {
+extension GitHubApi {
     func  get(withURL urlRequest: URLRequest, completion: @escaping (_ data: Data?) -> ()) {
-    let session = URLSession(configuration: .default)
-    
-    session.dataTask(with: urlRequest) { (data, response, error) in
-        if let data = data, error == nil {
-            completion(data)
-        }
-        completion(nil)
-    }.resume()
-}
+        let session = URLSession(configuration: .default)
+        
+        session.dataTask(with: urlRequest) { (data, response, error) in
+            if let data = data, error == nil {
+                completion(data)
+            }
+            completion(nil)
+        }.resume()
+    }
 }
 
 extension GitHubApi {
